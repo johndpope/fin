@@ -9,7 +9,7 @@ import (
 
 	"fin-go/db"
 	"fin-go/routes/analysisTrees"
-	"fin-go/routes/plaid"
+	"fin-go/routes/plaidHelper"
 	"fin-go/routes/saltedge"
 	"fin-go/types"
 
@@ -82,7 +82,7 @@ func FetchTransactionsFunction() func(http.ResponseWriter, *http.Request) {
 			go func(itemToken types.ItemToken) {
 				defer wgPre.Done()
 				if itemToken.Provider == "Plaid" && usePlaid {
-					plaid.RefreshConnection(itemToken, istmtPre, astmtPre)
+					plaidHelper.RefreshConnection(itemToken, istmtPre, astmtPre)
 				}
 			}(itemTok)
 		}
@@ -113,7 +113,7 @@ func FetchTransactionsFunction() func(http.ResponseWriter, *http.Request) {
 				if itemToken.Provider == "SaltEdge" && useSE {
 					saltedge.FetchTransactionsForItemToken(itemToken, istmtOnlyTx, astmt, tstmt, baseCurrency)
 				} else if usePlaid && itemToken.Provider == "Plaid" {
-					plaid.FetchTransactionsForItemToken(itemToken, istmtOnlyTx, astmt, tstmt, baseCurrency)
+					plaidHelper.FetchTransactionsForItemToken(itemToken, istmtOnlyTx, astmt, tstmt, baseCurrency)
 				}
 			}(itemTok)
 
