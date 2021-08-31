@@ -8,7 +8,7 @@ RUN apk add --update gcc musl-dev
 RUN mkdir -p /usr/src/app/backend_go
 RUN mkdir /usr/src/app/db
 WORKDIR /usr/src/app/backend_go
-RUN go get github.com/derekparker/delve/cmd/dlv
+RUN go install github.com/go-delve/delve/cmd/dlv@latest
 
 COPY ./backend_go ./
 RUN go mod vendor
