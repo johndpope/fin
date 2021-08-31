@@ -99,6 +99,8 @@ To actually start the backend (the Go backend development environment is built a
 $ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' fin-go
 ```
 Then VSCode can be set up to attach to the Docker container:
+Run > Add Configuration.....
+Docker Attach
 ```
 {
     "version": "0.2.0",
