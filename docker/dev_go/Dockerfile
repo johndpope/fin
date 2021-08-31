@@ -1,5 +1,5 @@
 # base image
-FROM golang:1.14-alpine3.11
+FROM golang:1.17-alpine3.14
 ENV CGO_ENABLED 1
 
 RUN apk update && apk add bash inotify-tools git
