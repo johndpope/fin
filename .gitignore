@@ -36,3 +36,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+backend_go/server
