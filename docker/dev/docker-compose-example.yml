@@ -13,7 +13,7 @@ services:
         network_mode: {YOUR_PROXY_NETWORK_HERE} 
         container_name: fin-dev
         expose:
-            - '9028'
+            - '9028' # Use NGINX config - SSL 
         image: fin-dev
     fin-go:
         build:
