@@ -12,8 +12,8 @@ services:
             - /usr/src/app/frontend/node_modules
         network_mode: {YOUR_PROXY_NETWORK_HERE} 
         container_name: fin-dev
-        expose:
-            - '9028' # Use NGINX config - SSL 
+        ports:
+            - '9028:9028' # Use NGINX config - SSL 
         image: fin-dev
     fin-go:
         build:
@@ -26,6 +26,6 @@ services:
           - ../../backend_go:/usr/src/app/backend_go
         network_mode: {YOUR_PROXY_NETWORK_HERE} 
         container_name: fin-go
-        expose:
-          - '6060'
+        ports:
+            - '6060:6060'        
         image: fin-go

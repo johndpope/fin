@@ -18,8 +18,8 @@ runServer() {
   killall dlv
   killall server
   log "Run in debug mode"
-  go run /server
-  dlv --listen=:40000 --headless=true --api-version=2 --accept-multiclient exec /server &
+  /server
+  # dlv --listen=:40000 --headless=true --api-version=2 --accept-multiclient exec /server &
 }
 
 rerunServer() {

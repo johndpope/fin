@@ -32,5 +32,6 @@ func main() {
 	app.SetupRouter()
 
 	log.Println("Starting HTTP server")
-	log.Fatal(http.ListenAndServe(":6060", app.Router))
+	// log.Fatal()
+	http.ListenAndServe(":6060", app.Router)
 }

@@ -12,7 +12,7 @@ RUN npm install -g @vue/cli @vue/cli-service vue-template-compiler vuetify
 WORKDIR /usr/src/app
 RUN apt-get update && apt-get install -y gcc make python3 python3-pip\
     && pip3 install --no-cache-dir sqlite-web
-
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)"
 ENV PATH /usr/local/lib/python3.7/site-packages:$PATH
 
 COPY ./entrypoints/start-dev.sh /

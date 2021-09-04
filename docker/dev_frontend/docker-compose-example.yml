@@ -12,6 +12,6 @@ services:
             - /usr/src/app/frontend/node_modules
         network_mode: {YOUR_PROXY_NETWORK_HERE} 
         container_name: fin-dev
-        expose:
-            - '9028'
+        ports:
+            - '9028:9028' # Use NGINX config - SSL
         image: fin-dev

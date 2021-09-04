@@ -9,7 +9,7 @@ RUN mkdir -p /usr/src/app/backend_go
 RUN mkdir /usr/src/app/db
 WORKDIR /usr/src/app/backend_go
 RUN go install github.com/go-delve/delve/cmd/dlv@latest
-
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)"
 COPY ./backend_go ./
 RUN go mod vendor
 RUN go build -gcflags "all=-N -l" -o /server main.go 
