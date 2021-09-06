@@ -540,7 +540,7 @@ func CreateLinkToken() func(w http.ResponseWriter, r *http.Request) {
 		)
 		request.SetProducts([]plaid.Products{plaid.PRODUCTS_AUTH})
 		request.SetLinkCustomizationName("default")
-		WEBHOOK = os.Getenv("WEBHOOK")
+		WEBHOOK := os.Getenv("WEBHOOK")
 		request.SetWebhook(WEBHOOK) //"http://0.0.0.0:9028")
 		request.SetAccountFilters(plaid.LinkTokenAccountFilters{
 			Depository: &plaid.DepositoryFilter{
