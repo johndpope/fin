@@ -6,6 +6,7 @@ import (
 
 	"fin-go/app"
 	"fin-go/db"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -33,5 +34,14 @@ func main() {
 
 	log.Println("Starting HTTP server")
 	// log.Fatal()
-	http.ListenAndServe(":6060", app.Router)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "6060"
+		log.Printf("Defaulting to port %s", port)
+	}
+
+	log.Printf("Listening on port %s", port)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
+		log.Fatal(err)
+	}
 }

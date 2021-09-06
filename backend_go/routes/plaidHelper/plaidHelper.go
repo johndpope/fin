@@ -156,7 +156,8 @@ func GetAccessToken() func(w http.ResponseWriter, r *http.Request) {
 
 		ctx := req.Context()
 		publicToken := req.FormValue("public_token")
-
+		fmt.Println("GetAccessToken!")
+		fmt.Println(req)
 		// exchange the public_token for an access_token
 		exchangePublicTokenResp, _, err := client.PlaidApi.ItemPublicTokenExchange(ctx).ItemPublicTokenExchangeRequest(
 			*plaid.NewItemPublicTokenExchangeRequest(publicToken),
@@ -516,12 +517,42 @@ func CreateLinkToken() func(w http.ResponseWriter, r *http.Request) {
 
 	return func(res http.ResponseWriter, req *http.Request) {
 		ctx := req.Context()
-		linkToken, err := linkTokenCreate(ctx, nil)
+		/*linkToken, err := linkTokenCreate(ctx, nil)
 		if err != nil {
 			renderError(res, err)
 			return
 		}
 		var data map[string]interface{}
+		data["link_token"] = linkToken
+		res.WriteHeader(http.StatusOK)
+		if err := json.NewEncoder(res).Encode(data); err != nil {
+			renderError(res, err)
+		}*/
+
+		user := plaid.LinkTokenCreateRequestUser{
+			ClientUserId: "00001",
+		}
+		request := plaid.NewLinkTokenCreateRequest(
+			"Plaid Test",
+			"en",
+			[]plaid.CountryCode{plaid.COUNTRYCODE_US},
+			user,
+		)
+		request.SetProducts([]plaid.Products{plaid.PRODUCTS_AUTH})
+		request.SetLinkCustomizationName("default")
+		request.SetWebhook("http://0.0.0.0:9028")
+		request.SetAccountFilters(plaid.LinkTokenAccountFilters{
+			Depository: &plaid.DepositoryFilter{
+				AccountSubtypes: []plaid.AccountSubtype{plaid.ACCOUNTSUBTYPE_CHECKING, plaid.ACCOUNTSUBTYPE_SAVINGS},
+			},
+		})
+		resp, _, err := client.PlaidApi.LinkTokenCreate(ctx).LinkTokenCreateRequest(*request).Execute()
+		if err != nil {
+			renderError(res, err)
+			return
+		}
+		linkToken := resp.GetLinkToken()
+		data := make(map[string]string)
 		data["link_token"] = linkToken
 		res.WriteHeader(http.StatusOK)
 		if err := json.NewEncoder(res).Encode(data); err != nil {
