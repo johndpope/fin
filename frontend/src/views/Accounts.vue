@@ -268,6 +268,7 @@ import api from "@/api";
 import moment from "moment";
 const Papa = require("papaparse");
 
+
 export default {
   data() {
     return {
@@ -524,8 +525,8 @@ export default {
       let ItemToUpload = {
         item_id: id
       };
-      let tok = await api.plaidGeneratePublicToken(ItemToUpload);
-      this.updateToken = tok.public_token;
+      let tok = await api.generateLinkToken(ItemToUpload);
+      this.updateToken = tok.link_token;
 
       await this.$nextTick();
       this.plaidRefresh = false;

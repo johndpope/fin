@@ -158,6 +158,9 @@ export default {
   plaidGeneratePublicToken(data: any) {
     return this.execute('post', '/api/plaidGeneratePublicToken', data);
   },
+  generateLinkToken(data: any) {
+    return this.execute('post', '/api/create_link_token', data);
+  },
   updateItemToken(id: any, data: any) {
     return this.execute('put', `/api/itemTokens/${id}`, data);
   },
