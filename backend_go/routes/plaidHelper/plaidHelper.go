@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fin-go/types"
 	"fmt"
@@ -11,11 +12,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"time"
-
-	"encoding/json"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
@@ -41,7 +41,8 @@ var environments = map[string]plaid.Environment{
 
 func init() {
 	// load env vars from .env file
-	err := godotenv.Load()
+	path, _ := os.Getwd()
+	err := godotenv.Load(filepath.Join(path, ".env"))
 	if err != nil {
 		fmt.Println("Error when loading environment variables from .env file %w", err)
 	}

@@ -22,6 +22,7 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -p https://github.com/zsh-users/zsh-completions
 ENV PATH /usr/local/lib/python3.7/site-packages:$PATH
 
+COPY .env /usr/src/app/frontend
 COPY ./entrypoints/start-dev.sh /
 RUN chmod +x /start-dev.sh
 CMD ["/bin/bash", "-c", "source /start-dev.sh"]
