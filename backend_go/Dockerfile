@@ -17,7 +17,7 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -p ssh-agent \
     -p https://github.com/zsh-users/zsh-autosuggestions \
     -p https://github.com/zsh-users/zsh-completions
-COPY ./backend_go ./
+COPY ./ ./
 COPY .env /
 RUN go mod vendor
 RUN go build -gcflags "all=-N -l" -o /server main.go 
